@@ -1,0 +1,35 @@
+[
+    {
+        "source": "lib/storage.js"
+    }, 
+    {
+        "source": "app/assistants/stage-assistant.js"
+    }, 
+    {
+        "source": "lib/jquery.min.js"
+    }, 
+    {
+        "source": "app/views/main/main-chrome.js", 
+        "scenes": "main"
+    }, 
+    {
+        "source": "app/assistants/main-assistant.js", 
+        "scenes": "main"
+    }, 
+    {
+        "source": "app/assistants/setup-assistant.js", 
+        "scenes": "setup"
+    }, 
+    {
+        "source": "app/views/setup/setup-chrome.js", 
+        "scenes": "setup"
+    }, 
+    {
+        "source": "app/assistants/read-assistant.js", 
+        "scenes": "read"
+    }, 
+    {
+        "source": "app/views/read/read-chrome.js", 
+        "scenes": "read"
+    }
+]

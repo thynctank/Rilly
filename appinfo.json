@@ -1,0 +1,9 @@
+{
+	"id": "com.thynctank.rilly",
+	"version": "1.0.0",
+	"vendor": "Nick Carter",
+	"type": "web",
+	"main": "index.html",
+	"title": "Rilly",
+	"icon": "icon.png"
+}

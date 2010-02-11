@@ -1,0 +1,26 @@
+.palm-row.readingItem {
+	height: auto;
+	padding: 10px 20px;
+}
+
+.palm-row.readingItem:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.palm-row.readingItem .checkboxClass {
+	float: right;
+	width: 15%;
+	margin: 0;
+	padding: 0;
+}
+
+.palm-row.readingItem .itemTitle {
+	width: 85%;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
