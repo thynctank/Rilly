@@ -1,6 +1,6 @@
 Rilly
 =====
-Rilly is an open-source (Read It Later)[http://www.readitlaterlist.com] client for webOS.
+Rilly is an open-source [Read It Later](http://www.readitlaterlist.com) client for webOS.
 
 Features
 ========
