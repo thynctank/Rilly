@@ -43,8 +43,6 @@ MainAssistant.prototype = {
 				//populate list and update widget
 				this.readingItems = $H(response.responseJSON.list).map(function(item) {
 					return item.value;
-				}).sortBy(function(item) {
-					return item.time_added;
 				}).reverse();
 				this.$.readingList.model.items = this.readingItems.clone();
 				this.controller.modelChanged(this.$.readingList.model);
