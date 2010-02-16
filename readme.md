@@ -2,7 +2,7 @@ Rilly
 =====
 Rilly is a [Read It Later](http://www.readitlaterlist.com) client for webOS.
 
-Syncopate is free and open-source software, licensed under [MIT License](http://www.opensource.org/licenses/mit-license.php)
+Rilly is free and open-source software, licensed under [MIT License](http://www.opensource.org/licenses/mit-license.php)
 
 Features
 ========
