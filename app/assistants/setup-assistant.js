@@ -26,6 +26,7 @@ SetupAssistant.prototype = {
 			parameters: Rilly.authParams, 
 			onSuccess: function(response) {
 				Rilly.store.write("accountInfo", {username: username, password: password}, function() {
+          // TODO: Add call to getList (pulling read and unread both) and populating initial store before pushing main
 					stageController.swapScene("main");
 				});
 			},

@@ -6,6 +6,7 @@ function MainAssistant(argFromPusher) {
 //also pushing read/removed items
 
 MainAssistant.prototype = {
+  // TODO: load list initially from local store, then call to getList() so UI immediately usable.
 	setup: function() {
 		this.controller.setupWidget("check", {}, {value: false,disabled: false});
 		Ares.setupSceneAssistant(this);
@@ -25,8 +26,11 @@ MainAssistant.prototype = {
 			]
 		});
 		this.handleCheck = this.handleCheck.bind(this);
-		this.getList = this.getList.bind(this);
 		Mojo.Event.listen(this.$.readingList.node, Mojo.Event.propertyChange, this.handleCheck);
+
+    // bind helpers
+		this.getList = getList.bind(this);
+		this.markRead = markRead.bind(this);
 	},
 	cleanup: function() {
 		Ares.cleanupSceneAssistant(this);
@@ -34,42 +38,6 @@ MainAssistant.prototype = {
 	},
 	refreshList: function() {
 		this.markRead(this.getList);
-	},
-	getList: function() {
-		var params = Object.extend(Rilly.authParams, {
-			state: "unread"
-		});
-		if(this.since)
-			params.since = this.since;
-	
-		new Ajax.Request(Rilly.getURL, {
-			parameters: params,
-			onSuccess: function(response) {
-				//store current time
-				this.since = response.responseJSON.since;
-				//populate list and update widget
-				if(!Object.isArray(response.responseJSON.list)) {
-					var newItems = $H(response.responseJSON.list).map(function(item) {
-						return item.value;
-					}).sortBy(function(item) {
-						return item.time_added;
-					}).reverse();
-					
-					//add to beginning of array
-					this.readingItems = newItems.concat(this.readingItems);
-
-					this.$.readingList.model.items = this.readingItems.clone();
-					this.controller.modelChanged(this.$.readingList.model);
-				}
-
-				//try to make scroller snap
-				this.$.scroller.model.snapElements = {y: $$(".readingItem"), x: $$(".readingItem")};
-				this.controller.modelChanged(this.$.scroller.model);
-			}.bind(this),
-			onFailure: function(response) {
-				Mojo.Controller.errorDialog("There was a problem fetching your list from the server");
-			}
-		});
 	},
 	handleCheck: function(event) {
 		if(event.model.value) {
@@ -83,49 +51,6 @@ MainAssistant.prototype = {
 			this.readItems = this.readItems.filter(function(item) {
 				return (item.item_id != event.model.item_id);
 			});
-		}
-	},
-	markRead: function(callback) {
-		//remove readItems from this.readingItems
-		if(this.readItems.length) {
-			var readObj = {};
-			//go through read items and add nested objects to readObj
-			this.readItems.each(function(item) {
-				readObj[item.item_id] = {url: item.url};
-			}.bind(this));
-		
-			//make service call to update server with items' statuses
-			new Ajax.Request(Rilly.sendURL, {
-				parameters: Object.extend(Rilly.authParams, {
-					read: Object.toJSON(readObj)
-				}),
-				onSuccess: function(response) {
-					this.readingItems = this.readingItems.reject(function(item) {
-						return this.readItems.any(function(innerItem) {
-							return (innerItem.item_id === item.item_id);
-						});
-					}.bind(this));
-					this.readItems = [];
-					
-					this.$.readingList.model.items = this.readingItems.clone();
-					this.controller.modelChanged(this.$.readingList.model);
-					
-					//clear any filter
-					this.$.filter.node.mojo.close();
-
-					if(callback)
-						callback();
-				}.bind(this),
-				onFailure: function(response) {
-					Mojo.Controller.errorDialog("There was a problem updating the read status on the server");
-				}
-			});
-		}
-		else {
-			this.$.filter.node.mojo.close();
-			if(callback)
-				callback();
-			//clear any filter
 		}
 	},
 	readItem: function(event) {
