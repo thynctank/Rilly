@@ -12,7 +12,6 @@ MainAssistant.prototype = {
 		Ares.setupSceneAssistant(this);
 		this.readItems = [];
 		this.readingItems = [];
-		this.getList();
 		this.controller.setupWidget(Mojo.Menu.commandMenu,
 			this.commandAttributes = {
 			spacerHeight: 0,
@@ -31,6 +30,8 @@ MainAssistant.prototype = {
     // bind helpers
 		this.getList = getList.bind(this);
 		this.markRead = markRead.bind(this);
+		
+		this.getList();
 	},
 	cleanup: function() {
 		Ares.cleanupSceneAssistant(this);
