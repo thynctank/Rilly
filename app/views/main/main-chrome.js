@@ -67,28 +67,7 @@ opus.Gizmo({
 								{
 									name: "readingList",
 									dropTarget: true,
-									items: [
-										{
-											item: 0,
-											label: "Zero",
-											value: false
-										},
-										{
-											item: 1,
-											label: "One",
-											value: false
-										},
-										{
-											item: 2,
-											label: "Two",
-											value: "2"
-										},
-										{
-											item: 3,
-											label: "Three",
-											value: "3"
-										}
-									],
+									items: [],
 									useSampleData: false,
 									itemHtml: "<div class=\"palm-row readingItem\">\n  <div x-mojo-element=\"CheckBox\" name=\"check\" class=\"checkboxClass\"></div>\n  <div class=\"itemTitle\">#{title}</div>\n</div>",
 									onlisttap: "readItem",
