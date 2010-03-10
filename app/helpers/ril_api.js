@@ -9,6 +9,9 @@ function getList(opts) {
   });
   if(opts.since)
   	params.since = opts.since;
+  
+  this.$.spinner.node.show();
+	
 
   new Ajax.Request(Rilly.getURL, {
   	parameters: params,
@@ -34,7 +37,10 @@ function getList(opts) {
   	}.bind(this),
   	onFailure: function(response) {
   		Mojo.Controller.errorDialog("There was a problem fetching your list from the server");
-  	}
+  	},
+    onComplete: function() {
+  	  this.$.spinner.node.hide();
+    }.bind(this)
   });
 }
 
