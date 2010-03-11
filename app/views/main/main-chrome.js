@@ -18,6 +18,15 @@ opus.Gizmo({
 			h: "100%",
 			controls: [
 				{
+					name: "scrim",
+					content: "<div class='palm-scrim'></div>\n",
+					type: "Palm.Mojo.Html",
+					l: 0,
+					t: 0,
+					b: "",
+					h: "100%"
+				},
+				{
 					name: "spinner",
 					plane: "1000",
 					type: "Palm.Mojo.LargeSpinner",
@@ -77,7 +86,7 @@ opus.Gizmo({
 									type: "Palm.Mojo.List",
 									l: 0,
 									t: 0,
-									h: 201
+									h: 100
 								}
 							]
 						}
