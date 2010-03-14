@@ -47,7 +47,7 @@ opus.Gizmo({
 					h: "100%",
 					controls: [
 						{
-							name: "pageHeader1",
+							name: "header",
 							title: "Your Reading List",
 							type: "Palm.Mojo.PageHeader",
 							l: 0,

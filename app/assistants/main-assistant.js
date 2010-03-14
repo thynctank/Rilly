@@ -26,6 +26,9 @@ MainAssistant.prototype = {
 		});
 		this.handleCheck = this.handleCheck.bind(this);
 		Mojo.Event.listen(this.$.readingList.node, Mojo.Event.propertyChange, this.handleCheck);
+		this.$.header.node.observe("click", function() {
+		  this.$.scroller.node.mojo.scrollTo(0,0, true);
+		}.bind(this));
 
     // bind helpers
 		this.getList = getList.bind(this);

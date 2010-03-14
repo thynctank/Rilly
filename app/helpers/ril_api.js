@@ -5,10 +5,9 @@ function getList(opts) {
   if(!opts)
     opts = {};
   var params = Object.extend(Rilly.authParams, {
-  	state: opts.list || "unread"
+  	state: opts.list || "unread",
+  	since: opts.since || this.since || null
   });
-  if(opts.since)
-  	params.since = opts.since;
   
   this.$.spinner.node.show();
   this.$.scrim.node.show();
@@ -31,6 +30,7 @@ function getList(opts) {
 
   			this.$.readingList.model.items = this.readingItems.clone();
   			this.controller.modelChanged(this.$.readingList.model);
+        this.$.header.node.down(".title").innerHTML = "Your Reading List - <strong>#{count} items</strong>".interpolate({count: this.$.readingList.model.items.length});
   			
   			//handle any read items, remove from readingItems and add to readItems
   		}
