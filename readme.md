@@ -13,11 +13,12 @@ Features
 
 Upcoming Features
 =================
-* Ability to read already-read items as well as unread items
-* Ability to signup for RIL from in-app
-* Ability to log out and log in as a different user
-* Ability to follow links and mark new links as new RIL items
-* Ability to share link or current page via email or Twitter
-* Ability to read text-only items offline when no network available
+* Reading already-read items as well as unread items
+* Signup for RIL from in-app
+* Adding new links in-app from menu item (past in from other apps)
+* Logging out back in as a different user
+* Following links and marking new links as new RIL items
+* Share link or current page via email, messaging app or Twitter (mobile Web site URL to start)
+* Reading text-only items offline even when no network available
 * Auto-sync of offline items
 * Design enhancements
