@@ -57,10 +57,10 @@ MainAssistant.prototype = {
 			});
 		}
 	},
-	readItem: function(event) {
+	readItem: function(inSender, event) {
 		this.controller.stageController.pushScene("read", event.item);
 	},
-	handleFilter: function(event) {
+	handleFilter: function(inSender, event) {
 		this.$.readingList.model.items = this.readingItems.filter(function(item) {
 			return item.title.toLowerCase().include(event.filterString.toLowerCase());
 		});

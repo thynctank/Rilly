@@ -8,7 +8,7 @@ SetupAssistant.prototype = {
 	cleanup: function() {
 		Ares.cleanupSceneAssistant(this);
 	},
-	authUser: function(event, inSender) {
+	authUser: function() {
 		//disable fields
 		this.$.username.model.disabled = true;
 		this.$.password.model.disabled = true;
