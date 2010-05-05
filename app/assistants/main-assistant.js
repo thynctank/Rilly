@@ -24,6 +24,7 @@ MainAssistant.prototype = {
 				{command: "refresh", icon: "refresh"}
 			]
 		});
+		this.controller.setupWidget(Mojo.Menu.appMenu, {omitDefaultItems: true}, Rilly.appMenuModel);
 		this.handleCheck = this.handleCheck.bind(this);
 		Mojo.Event.listen(this.$.readingList.node, Mojo.Event.propertyChange, this.handleCheck);
 		this.$.header.node.observe("click", function() {

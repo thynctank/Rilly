@@ -6,6 +6,12 @@ Rilly = {
 };
 Rilly.store = new Storage("rilly");
 
+Rilly.appMenuModel = {
+	items: [
+		{label: "Help", command: "help"}
+	]
+};
+
 function StageAssistant() {
 }
 
@@ -24,4 +30,15 @@ StageAssistant.prototype.setup = function() {
 		});
 	});
 	this.controller.setWindowOrientation("free");
+};
+
+StageAssistant.prototype.handleCommand = function(event) {
+  this.controller=Mojo.Controller.stageController.activeScene();
+  if(event.type == Mojo.Event.command) {
+  	switch(event.command) {
+			case 'help':
+    		this.controller.stageController.pushAppSupportInfoScene();
+    		break;
+		}
+	}
 };

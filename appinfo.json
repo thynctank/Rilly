@@ -5,5 +5,12 @@
 	"type": "web",
 	"main": "index.html",
 	"title": "Rilly",
-	"icon": "icon.png"
+	"icon": "icon.png",
+	"support": {
+		"url": "http://www.thynctank.com",
+    "email": {
+    	"address": "thynctank+support@thynctank.com",
+    	"subject": "Rilly Help"
+    }
+	}
 }
