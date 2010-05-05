@@ -67,6 +67,9 @@ MainAssistant.prototype = {
 		this.$.filter.node.mojo.setCount(this.$.readingList.model.items.length);
 		this.controller.modelChanged(this.$.readingList.model);
 	},
+	updateHeader: function() {
+    this.$.header.node.down(".title").innerHTML = "Your Reading List - <strong>#{count} items</strong>".interpolate({count: this.$.readingList.model.items.length});
+	},
 	handleCommand: function(event) {
 		if(event.type === Mojo.Event.command) {
 			switch(event.command) {

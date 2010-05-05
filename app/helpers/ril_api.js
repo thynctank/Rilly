@@ -30,7 +30,7 @@ function getList(opts) {
 
   			this.$.readingList.model.items = this.readingItems.clone();
   			this.controller.modelChanged(this.$.readingList.model);
-        this.$.header.node.down(".title").innerHTML = "Your Reading List - <strong>#{count} items</strong>".interpolate({count: this.$.readingList.model.items.length});
+  			this.updateHeader();
   			
   			//handle any read items, remove from readingItems and add to readItems
   		}
@@ -69,6 +69,7 @@ function markRead(callback) {
 				
 				this.$.readingList.model.items = this.readingItems.clone();
 				this.controller.modelChanged(this.$.readingList.model);
+				this.updateHeader();
 				
 				//clear any filter
 				this.$.filter.node.mojo.close();
