@@ -39,13 +39,13 @@ ReadAssistant.prototype = {
 		this.$.web.node.mojo.openURL(this.item.url);
 	},
 	handleStart: function() {
-		this.commandModel.items[1] = this.stopModel;
-		this.controller.modelChanged(this.commandModel);
-		this.progressLoadImage = 0;
+    this.commandModel.items[1] = this.stopModel;
+    this.controller.modelChanged(this.commandModel);
+    this.progressLoadImage = 0;
 	},
 	handleStop: function() {
-		this.commandModel.items[1] = this.refreshModel;
-		this.controller.modelChanged(this.commandModel);
+    this.commandModel.items[1] = this.refreshModel;
+    this.controller.modelChanged(this.commandModel);
 	},
 	handleUpdate: function(info) {
 		var firstCommand = {};
@@ -57,8 +57,13 @@ ReadAssistant.prototype = {
 	},
 	handleProgress: function() {
 		var percent = event.progress;
-		//determine which of 24 images to use (0 thru 23)
+		if(percent > 100)
+		  percent = 100;
+		else if(percent < 0)
+		  percent = 0;
 		this.currentLoadProgressPercentage = percent;
+		
+		//determine which of 24 images to use (0 thru 23)
 		var image = Math.round(percent/4.1);
 		if(image > 23)
 			image = 23;
