@@ -1,15 +1,17 @@
 {
 	"id": "com.thynctank.rilly",
-	"version": "1.0.0",
+	"version": "0.5.0",
 	"vendor": "Nick Carter",
 	"type": "web",
 	"main": "index.html",
 	"title": "Rilly",
-	"icon": "icon.png",
+	"icon": "openbook.png",
+	"splashicon": "launch_invisible_icon.png",
+	"splashBackground": "openbook_launch_bg.png",
 	"support": {
 		"url": "http://www.thynctank.com",
     "email": {
-    	"address": "thynctank+support@thynctank.com",
+    	"address": "rilly@thynctank.com",
     	"subject": "Rilly Help"
     }
 	}
