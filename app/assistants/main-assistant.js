@@ -32,7 +32,22 @@ MainAssistant.prototype = {
 		}.bind(this));
 
     // bind helpers
-		this.getList = Rilly.getList.bind(this);
+		this.getList = Rilly.getList.bind(this, {
+		  onComplete: function() {
+  		  this.$.spinner.node.hide();
+  		  this.$.scrim.node.hide();
+		  }.bind(this),
+		  onCreate: function() {
+		    this.$.spinner.node.show();
+        this.$.scrim.node.show();
+		  }.bind(this),
+		  onSuccess: function(updatedReadingItems) {
+		    this.$.readingList.model.items = updatedReadingItems.clone();
+  			this.controller.modelChanged(this.$.readingList.model);
+  			this.updateHeader();
+		  }.bind(this),
+		  listToReplace: this.readingItems
+		});
 		this.markRead = Rilly.markRead.bind(this);
 		
 		this.getList();
