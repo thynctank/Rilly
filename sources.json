@@ -9,10 +9,6 @@
         "source": "app/assistants/stage-assistant.js"
     }, 
     {
-        "source": "app/helpers/ril_api.js",
-        "scenes": "main"
-    },
-    {
         "source": "lib/jquery.min.js"
     }, 
     {
