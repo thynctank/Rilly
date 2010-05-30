@@ -32,8 +32,8 @@ MainAssistant.prototype = {
 		}.bind(this));
 
     // bind helpers
-		this.getList = getList.bind(this);
-		this.markRead = markRead.bind(this);
+		this.getList = Rilly.getList.bind(this);
+		this.markRead = Rilly.markRead.bind(this);
 		
 		this.getList();
 	},
