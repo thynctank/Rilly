@@ -3,6 +3,9 @@
         "source": "lib/storage.js"
     }, 
     {
+        "source": "lib/rilly.js"
+    }, 
+    {
         "source": "app/assistants/stage-assistant.js"
     }, 
     {

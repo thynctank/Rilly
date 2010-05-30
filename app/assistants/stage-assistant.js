@@ -1,17 +1,3 @@
-Rilly = {
-	apikey: "651gbd43p9cqKne02cT90G0I82A5pdrq",
-	authURL: "https://readitlaterlist.com/v2/auth",
-	getURL: "https://readitlaterlist.com/v2/get",
-	sendURL: "https://readitlaterlist.com/v2/send"
-};
-Rilly.store = new Storage("rilly");
-
-Rilly.appMenuModel = {
-	items: [
-		{label: "Help", command: "help"}
-	]
-};
-
 function StageAssistant() {
 }
 
