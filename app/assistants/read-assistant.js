@@ -22,6 +22,8 @@ ReadAssistant.prototype = {
 			]
 		});
 		
+		this.controller.useLandscapePageUpDown(true);
+		
 		//handle pages after first by adding a back button to command items
 		this.handleUpdate = this.handleUpdate.bind(this);
 		this.handleStart = this.handleStart.bind(this);
