@@ -15,10 +15,11 @@ Upcoming Features
 =================
 * Reading already-read items as well as unread items
 * Signup for RIL from in-app
-* Adding new links in-app from menu item (past in from other apps)
-* Logging out back in as a different user
-* Following links and marking new links as new RIL items
-* Share link or current page via email, messaging app or Twitter (mobile Web site URL to start)
-* Reading text-only items offline even when no network available
+* Adding new links in-app
+* Logging out/clearing app data
+* Tap/marking links in viewer as new RIL items
+* Share link via email, messaging app or Twitter (mobile Web site URL to start)
+* Reading text-only items offline even when no network available (great for airplane content consumption)
+* Syncing of read/unread items lists when network/connection becomes available, even when you've been offline to mark them as such
 * Auto-sync of offline items
 * Design enhancements
