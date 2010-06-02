@@ -24,7 +24,7 @@ MainAssistant.prototype = {
 				{command: "refresh", icon: "refresh"}
 			]
 		});
-		this.controller.setupWidget(Mojo.Menu.appMenu, {omitDefaultItems: true}, Rilly.appMenuModel);
+		this.controller.setupWidget(Mojo.Menu.appMenu, {omitDefaultItems: true}, util.appMenuModel);
 		this.handleCheck = this.handleCheck.bind(this);
 		Mojo.Event.listen(this.$.readingList.node, Mojo.Event.propertyChange, this.handleCheck);
 		this.$.header.node.observe("click", function() {
@@ -32,7 +32,7 @@ MainAssistant.prototype = {
 		}.bind(this));
 
     // bind helpers
-		this.getList = Rilly.getList.bind(this, {
+		this.getList = ril.getList.bind(this, {
 		  onComplete: function() {
   		  this.$.spinner.node.hide();
   		  this.$.scrim.node.hide();
@@ -48,7 +48,7 @@ MainAssistant.prototype = {
 		  }.bind(this),
 		  listToReplace: this.readingItems
 		});
-		this.markRead = Rilly.markRead.bind(this);
+		this.markRead = ril.markRead.bind(this);
 		
 		this.getList();
 	},

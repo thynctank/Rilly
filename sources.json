@@ -6,6 +6,9 @@
         "source": "lib/rilly.js"
     }, 
     {
+        "source": "lib/utilly.js"
+    }, 
+    {
         "source": "app/assistants/stage-assistant.js"
     }, 
     {
