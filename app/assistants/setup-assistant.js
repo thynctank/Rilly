@@ -20,7 +20,7 @@ SetupAssistant.prototype = {
 				stageController = this.controller.stageController;
 
 		//setup authParams hash on Rilly
-		Rilly.authParams = {username: username, password: password, apikey: ril.apikey};
+		ril.authParams = {username: username, password: password, apikey: ril.apikey};
 		ril.authUser({
 		  onSuccess: function(response) {
 		    ril.store.write("accountInfo", {username: username, password: password}, function() {
