@@ -12,7 +12,7 @@ StageAssistant.prototype.setup = function() {
 	var stageController = this.controller;
 	
 	//if no account info stored, go to setup, else go to main
-	ril.store.createTable("accountInfo", {username: "string", password: "string"}, function() {
+	ril.store.createTable("accountInfo", {username: "text", password: "text"}, function() {
 		ril.store.read("accountInfo", null, null, function(rows) {
 			if(rows.length) {
 				ril.authParams = {username: rows[0].username, password: rows[0].password, apikey: ril.apikey};
