@@ -8,6 +8,15 @@ ReadAssistant.prototype = {
 		
 		this.stopModel = {icon: 'load-progress', command: 'stop'};
 		this.refreshModel = {command: "refresh", icon: "refresh"};
+		this.shareButtonModel = {command: "showShare", label: "Share", submenu: "shareMenu"};
+		this.shareMenuModel = {
+		  items: [
+	      {label: "Messaging", command: "message"},
+	      {label: "Email", command: "email"},
+	      {label: "Twitter", command: "twitter"},
+	      {label: "Copy to Clipboard", command: "clipboard"}
+	    ]
+		};
      
 		this.controller.setupWidget(Mojo.Menu.commandMenu,
 			this.commandAttributes = {
@@ -17,10 +26,13 @@ ReadAssistant.prototype = {
 		this.commandModel = {
 			visible: true,
 			items: [
+				this.shareButtonModel,
 				{},
 				this.refreshModel
 			]
 		});
+		
+		this.controller.setupWidget("shareMenu", {}, this.shareMenuModel);
 		
 		this.controller.useLandscapePageUpDown(true);
 		
@@ -41,12 +53,12 @@ ReadAssistant.prototype = {
 		this.$.web.node.mojo.openURL(this.item.url);
 	},
 	handleStart: function() {
-    this.commandModel.items[1] = this.stopModel;
+    this.commandModel.items[2] = this.stopModel;
     this.controller.modelChanged(this.commandModel);
     this.progressLoadImage = 0;
 	},
 	handleStop: function() {
-    this.commandModel.items[1] = this.refreshModel;
+    this.commandModel.items[2] = this.refreshModel;
     this.controller.modelChanged(this.commandModel);
 	},
 	handleUpdate: function(info) {
@@ -54,7 +66,7 @@ ReadAssistant.prototype = {
 		if(info.canGoBack) {
 			firstCommand = {command: "back", icon: "back"};
 		}
-		this.commandModel.items[0] = firstCommand;
+		this.commandModel.items[1] = firstCommand;
 		this.controller.modelChanged(this.commandModel);
 	},
 	handleProgress: function() {
@@ -117,6 +129,12 @@ ReadAssistant.prototype = {
 				case "stop":
 					webMojo.stopLoad();
 					break;
+			  case "message":
+        case "email":
+        case "twitter":
+        case "clipboard":
+          util[event.command](this.item);
+          break;
 			}
 		}
 	}
