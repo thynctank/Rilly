@@ -20,7 +20,8 @@ MainAssistant.prototype = {
 		this.commandModel = {
 			visible: true,
 			items: [
-				{},
+        // {command: "newItem", icon: "plus"},
+        {},
 				{command: "refresh", icon: "refresh"}
 			]
 		});
@@ -86,12 +87,19 @@ MainAssistant.prototype = {
 	updateHeader: function() {
     this.$.header.node.down(".title").innerHTML = "Your Reading List - <strong>#{count} items</strong>".interpolate({count: this.$.readingList.model.items.length});
 	},
+	newItem: function() {
+    // show dialog with URL/title fields, and a submit button
+    // add item to unreadList, try to sync to server
+	},
 	handleCommand: function(event) {
 		if(event.type === Mojo.Event.command) {
 			switch(event.command) {
 				case "refresh":
 					this.refreshList();
 					break;
+				case "newItem":
+				  this.newItem();
+				  break;
 			}
 		}
 	}
