@@ -20,7 +20,7 @@ MainAssistant.prototype = {
 		this.commandModel = {
 			visible: true,
 			items: [
-        // {command: "newItem", icon: "plus"},
+        {command: "newItem", icon: "new"},
         {},
 				{command: "refresh", icon: "refresh"}
 			]
@@ -90,6 +90,10 @@ MainAssistant.prototype = {
 	newItem: function() {
     // show dialog with URL/title fields, and a submit button
     // add item to unreadList, try to sync to server
+    this.controller.showDialog({
+	    template: "main/new-item-dialog",
+	    assistant: new ItemDialogAssistant(this)
+	  });
 	},
 	handleCommand: function(event) {
 		if(event.type === Mojo.Event.command) {
@@ -104,3 +108,29 @@ MainAssistant.prototype = {
 		}
 	}
 };
+
+var ItemDialogAssistant = Class.create({
+  initialize: function(sceneAssistant) {
+    this.sceneAssistant = sceneAssistant;
+    this.controller = sceneAssistant.controller;
+  },
+  setup: function(widget) {
+    this.widget = widget;
+    
+    this.controller.setupWidget("newItemURL", {}, {
+      value: ""
+    });
+    this.controller.setupWidget("newItemName", {}, {
+      value: ""
+    });
+    this.controller.setupWidget("saveItemButton", {type: Mojo.Widget.activityButton}, {buttonLabel: "Save"});
+    this.saveNewItem = function() {
+      
+    }.bind(this);
+    
+    // handler for tapping save
+  },
+  cleanup: function() {
+    // clean up handler for tapping save
+  }
+});
