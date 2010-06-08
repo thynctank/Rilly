@@ -120,7 +120,7 @@ var ItemDialogAssistant = Class.create({
     this.controller.setupWidget("newItemURL", {}, {
       value: ""
     });
-    this.controller.setupWidget("newItemName", {}, {
+    this.controller.setupWidget("newItemTitle", {}, {
       value: ""
     });
     this.controller.setupWidget("saveItemButton", {type: Mojo.Widget.activityButton}, {buttonLabel: "Save"});
