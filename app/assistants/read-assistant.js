@@ -133,7 +133,7 @@ ReadAssistant.prototype = {
         case "email":
         case "twitter":
         case "clipboard":
-          util[event.command](this.item);
+          util[event.command](Object.clone(this.item));
           break;
 			}
 		}
