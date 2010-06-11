@@ -15,7 +15,7 @@ StageAssistant.prototype.setup = function() {
 	ril.store.createTable("accountInfo", {username: "text", password: "text"}, function() {
 		ril.store.read("accountInfo", null, null, function(rows) {
 			if(rows.length) {
-				ril.authParams = {username: rows[0].username, password: rows[0].password, apikey: ril.apikey};
+				ril.authParams = {username: rows[0].username, password: rows[0].password};
 				stageController.pushScene({name: "main", disableSceneScroller: true});
 			}
 			else

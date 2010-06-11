@@ -1,3 +1,5 @@
+// TODO finish new item functionality, properly convert all old helper calls to new Rilly methods
+
 function MainAssistant(argFromPusher) {
 }
 
@@ -10,8 +12,6 @@ MainAssistant.prototype = {
 	setup: function() {
 		this.controller.setupWidget("check", {}, {value: false,disabled: false});
 		Ares.setupSceneAssistant(this);
-		this.readItems = [];
-		this.readingItems = [];
 		this.controller.setupWidget(Mojo.Menu.commandMenu,
 			this.commandAttributes = {
 			spacerHeight: 0,
@@ -20,7 +20,7 @@ MainAssistant.prototype = {
 		this.commandModel = {
 			visible: true,
 			items: [
-        {command: "newItem", icon: "new"},
+        {},// {command: "newItem", icon: "new"},
         {},
 				{command: "refresh", icon: "refresh"}
 			]
@@ -28,37 +28,47 @@ MainAssistant.prototype = {
 		this.controller.setupWidget(Mojo.Menu.appMenu, {omitDefaultItems: true}, util.appMenuModel);
 		this.handleCheck = this.handleCheck.bind(this);
 		Mojo.Event.listen(this.$.readingList.node, Mojo.Event.propertyChange, this.handleCheck);
-		this.$.header.node.observe("click", function() {
-		  this.$.scroller.node.mojo.scrollTo(0,0, true);
-		}.bind(this));
+		this.handleHeaderTap = this.handleHeaderTap.bind(this);
+		this.$.header.node.observe("click", this.handleHeaderTap);
 
-    // bind helpers
-		this.getList = ril.getList.bind(this, {
-		  onComplete: function() {
-  		  this.$.spinner.node.hide();
-  		  this.$.scrim.node.hide();
-		  }.bind(this),
-		  onCreate: function() {
-		    this.$.spinner.node.show();
-        this.$.scrim.node.show();
-		  }.bind(this),
-		  onSuccess: function(updatedReadingItems) {
-		    this.$.readingList.model.items = updatedReadingItems.clone();
-  			this.controller.modelChanged(this.$.readingList.model);
-  			this.updateHeader();
-		  }.bind(this),
-		  listToReplace: this.readingItems
-		});
-		this.markRead = ril.markRead.bind(this);
-		
-		this.getList();
+    // // bind helpers
+    //    this.getList = ril.getList.bind(this, {
+    //      onComplete: function() {
+    //        this.$.spinner.node.hide();
+    //        this.$.scrim.node.hide();
+    //      }.bind(this),
+    //      onCreate: function() {
+    //        this.$.spinner.node.show();
+    //         this.$.scrim.node.show();
+    //      }.bind(this),
+    //      onSuccess: function(updatedReadingItems) {
+    //        this.$.readingList.model.items = updatedReadingItems.clone();
+    //        this.controller.modelChanged(this.$.readingList.model);
+    //        this.updateHeader();
+    //      }.bind(this),
+    //      listToReplace: this.readingItems
+    //    });
+    //    this.markRead = ril.markRead.bind(this);
+    //    
+    //    this.getList();
+    //    
+	},
+	activate: function() {
+    this.getList();
 	},
 	cleanup: function() {
 		Ares.cleanupSceneAssistant(this);
 		//remove handlers
 	},
-	refreshList: function() {
-		this.markRead(this.getList);
+  handleHeaderTap: function() {
+    this.$.scroller.node.mojo.scrollTo(0,0, true);
+  },
+  //full sync, get latest and display. Even if get failed, show existing stored items
+	getList: function() {
+	  
+    // Before: show spinner, scrim
+    // fetch latest, send updates, new items
+    // After: hide spinner, scrim
 	},
 	handleCheck: function(event) {
 		if(event.model.value) {

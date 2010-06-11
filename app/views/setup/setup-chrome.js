@@ -56,8 +56,11 @@ opus.Gizmo({
 						{
 							name: "password",
 							hintText: "Password",
+							enterSubmits: true,
+							requiresEnterKey: true,
 							autoReplace: false,
 							textCase: "cap-lowercase",
+							onchange: "authUser",
 							type: "Palm.Mojo.PasswordField",
 							l: 0,
 							t: 0
@@ -69,6 +72,7 @@ opus.Gizmo({
 		{
 			name: "saveButton",
 			ontap: "authUser",
+			disabled: undefined,
 			label: "Save",
 			type: "Palm.Mojo.ActivityButton",
 			l: 0,
