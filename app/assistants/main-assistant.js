@@ -20,7 +20,7 @@ MainAssistant.prototype = {
 		this.commandModel = {
 			visible: true,
 			items: [
-        {},// {command: "newItem", icon: "new"},
+        {command: "newItem", icon: "new"},
         {},
 				{command: "refresh", icon: "refresh"}
 			]
@@ -127,7 +127,7 @@ var ItemDialogAssistant = Class.create({
   setup: function(widget) {
     this.widget = widget;
     
-    this.controller.setupWidget("newItemURL", {}, {
+    this.controller.setupWidget("newItemURL", {textCase: Mojo.Widget.steModeLowerCase}, {
       value: ""
     });
     this.controller.setupWidget("newItemTitle", {}, {
@@ -135,10 +135,21 @@ var ItemDialogAssistant = Class.create({
     });
     this.controller.setupWidget("saveItemButton", {type: Mojo.Widget.activityButton}, {buttonLabel: "Save"});
     this.saveNewItem = function() {
-      
+      var url = this.controller.get("newItemURL").mojo.getValue(),
+          title = this.controller.get("newItemTitle").mojo.getValue();
+      ril.addItem({
+        url: url,
+        title: title,
+        onComplete: function(response) {
+          var unreadListModel = this.sceneAssistant.$.readingList.model;
+          unreadListModel.items.push({url: url, title: title});
+          this.sceneAssistant.controller.modelChanged(unreadListModel);
+          this.widget.mojo.close();
+        }.bind(this)
+      });
     }.bind(this);
     
-    // handler for tapping save
+    this.controller.listen("saveItemButton", Mojo.Event.tap, this.saveNewItem);
   },
   cleanup: function() {
     // clean up handler for tapping save
