@@ -26,35 +26,15 @@ MainAssistant.prototype = {
 			]
 		});
 		this.controller.setupWidget(Mojo.Menu.appMenu, {omitDefaultItems: true}, util.appMenuModel);
+		this.readingItems = ril.unreadList;
+		
 		this.handleCheck = this.handleCheck.bind(this);
 		Mojo.Event.listen(this.$.readingList.node, Mojo.Event.propertyChange, this.handleCheck);
 		this.handleHeaderTap = this.handleHeaderTap.bind(this);
 		this.$.header.node.observe("click", this.handleHeaderTap);
-
-    // // bind helpers
-    //    this.getList = ril.getList.bind(this, {
-    //      onComplete: function() {
-    //        this.$.spinner.node.hide();
-    //        this.$.scrim.node.hide();
-    //      }.bind(this),
-    //      onCreate: function() {
-    //        this.$.spinner.node.show();
-    //         this.$.scrim.node.show();
-    //      }.bind(this),
-    //      onSuccess: function(updatedReadingItems) {
-    //        this.$.readingList.model.items = updatedReadingItems.clone();
-    //        this.controller.modelChanged(this.$.readingList.model);
-    //        this.updateHeader();
-    //      }.bind(this),
-    //      listToReplace: this.readingItems
-    //    });
-    //    this.markRead = ril.markRead.bind(this);
-    //    
-    //    this.getList();
-    //    
 	},
 	activate: function() {
-    this.getList();
+    this.refresh();
 	},
 	cleanup: function() {
 		Ares.cleanupSceneAssistant(this);
@@ -64,25 +44,27 @@ MainAssistant.prototype = {
     this.$.scroller.node.mojo.scrollTo(0,0, true);
   },
   //full sync, get latest and display. Even if get failed, show existing stored items
-	getList: function() {
-	  
-    // Before: show spinner, scrim
+	refresh: function() {
     // fetch latest, send updates, new items
-    // After: hide spinner, scrim
+	  ril.sync({
+      // Before: show spinner, scrim
+      onCreate: function() {
+        this.$.spinner.node.show();
+        this.$.scrim.node.show();
+      }.bind(this),
+      // After: hide spinner, scrim
+      onComplete: function() {
+        this.$.spinner.node.hide();
+        this.$.scrim.node.hide();
+      }.bind(this),
+      onSuccess: function() {
+        this.$.readingList.model.items = this.readingItems.clone();
+        this.controller.modelChanged(this.$.readingList.model);
+        this.updateHeader();
+      }.bind(this)
+	  });
 	},
 	handleCheck: function(event) {
-		if(event.model.value) {
-			if(!this.readItems.find(function(item) {
-				return (item.item_id === event.model.item_id);
-			}))
-				this.readItems.push(event.model);
-		}
-		else {
-			//if it exists, remove it from readItems
-			this.readItems = this.readItems.filter(function(item) {
-				return (item.item_id != event.model.item_id);
-			});
-		}
 	},
 	readItem: function(inSender, event) {
 		this.controller.stageController.pushScene("read", event.item);
@@ -109,7 +91,7 @@ MainAssistant.prototype = {
 		if(event.type === Mojo.Event.command) {
 			switch(event.command) {
 				case "refresh":
-					this.refreshList();
+					this.refresh();
 					break;
 				case "newItem":
 				  this.newItem();
@@ -138,8 +120,10 @@ var ItemDialogAssistant = Class.create({
       var url = this.controller.get("newItemURL").mojo.getValue(),
           title = this.controller.get("newItemTitle").mojo.getValue();
       ril.addItem({
-        url: url,
-        title: title,
+        params: {
+          url: url,
+          title: title
+        },
         onComplete: function(response) {
           var unreadListModel = this.sceneAssistant.$.readingList.model;
           unreadListModel.items.push({url: url, title: title});
