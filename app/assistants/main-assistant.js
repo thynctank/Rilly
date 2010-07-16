@@ -58,7 +58,7 @@ MainAssistant.prototype = {
         this.$.scrim.node.hide();
       }.bind(this),
       onSuccess: function() {
-        this.$.readingList.model.items = this.readingItems.clone();
+        this.$.readingList.model.items = ril.unreadList.clone();
         this.controller.modelChanged(this.$.readingList.model);
         this.updateHeader();
       }.bind(this)
