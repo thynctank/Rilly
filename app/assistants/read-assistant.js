@@ -13,7 +13,7 @@ ReadAssistant.prototype = {
 		  items: [
 	      {label: "Messaging", command: "message"},
 	      {label: "Email", command: "email"},
-	      {label: "Twitter", command: "twitter"},
+        // {label: "Twitter", command: "twitter"},
 	      {label: "Copy to Clipboard", command: "clipboard"}
 	    ]
 		};
@@ -48,9 +48,11 @@ ReadAssistant.prototype = {
 		Mojo.Event.listen(this.$.web.node, Mojo.Event.webViewLoadProgress, this.handleProgress);
 		Mojo.Event.listen(this.$.web.node, Mojo.Event.webViewLoadStopped, this.handleStop);
 		Mojo.Event.listen(this.$.web.node, Mojo.Event.webViewLoadFailed, this.handleStop);
-		
+
 		this.controller.enableFullScreenMode(true);
-		this.$.web.node.mojo.openURL(this.item.url);
+		this.currentURL = this.item.url;
+	  this.currentTitle = this.item.title;
+		this.$.web.node.mojo.openURL(this.currentURL);
 	},
 	handleStart: function() {
     this.commandModel.items[2] = this.stopModel;
@@ -62,6 +64,8 @@ ReadAssistant.prototype = {
     this.controller.modelChanged(this.commandModel);
 	},
 	handleUpdate: function(info) {
+	  this.currentURL = info.url;
+	  this.currentTitle = info.title;
 		var firstCommand = {};
 		if(info.canGoBack) {
 			firstCommand = {command: "back", icon: "back"};
@@ -131,9 +135,9 @@ ReadAssistant.prototype = {
 					break;
 			  case "message":
         case "email":
-        case "twitter":
+        // case "twitter":
         case "clipboard":
-          util[event.command](Object.clone(this.item));
+          util[event.command]({url: this.currentURL, title: this.currentTitle});
           break;
 			}
 		}
