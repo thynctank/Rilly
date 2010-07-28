@@ -124,10 +124,10 @@ var ItemDialogAssistant = Class.create({
           url: url,
           title: title
         },
-        onComplete: function(response) {
-          var unreadListModel = this.sceneAssistant.$.readingList.model;
-          unreadListModel.items.push({url: url, title: title});
-          this.sceneAssistant.controller.modelChanged(unreadListModel);
+        onComplete: function() {
+          this.sceneAssistant.$.readingList.model.items = ril.unreadList.clone();
+          this.controller.modelChanged(this.sceneAssistant.$.readingList.model);
+          this.sceneAssistant.updateHeader();
           this.widget.mojo.close();
         }.bind(this)
       });
