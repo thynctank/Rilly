@@ -53,13 +53,13 @@ MainAssistant.prototype = {
       }.bind(this),
       // After: hide spinner, scrim
       onSuccess: function() {
-        this.hideSpinner();
         this.updateList();
         this.updateHeader();
+        this.hideSpinner();
       }.bind(this),
       onFailure: function() {
         this.hideSpinner();
-      }
+      }.bind(this)
 	  });
 	},
 	handleCheck: function(event) {
