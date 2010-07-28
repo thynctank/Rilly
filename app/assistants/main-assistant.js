@@ -49,22 +49,27 @@ MainAssistant.prototype = {
 	  ril.sync({
       // Before: show spinner, scrim
       onCreate: function() {
-        this.$.spinner.node.show();
-        this.$.scrim.node.show();
+        this.showSpinner();
       }.bind(this),
       // After: hide spinner, scrim
-      onComplete: function() {
-        this.$.spinner.node.hide();
-        this.$.scrim.node.hide();
-      }.bind(this),
       onSuccess: function() {
-        this.$.readingList.model.items = ril.unreadList.clone();
-        this.controller.modelChanged(this.$.readingList.model);
+        this.hideSpinner();
+        this.updateList();
         this.updateHeader();
-      }.bind(this)
+      }.bind(this),
+      onFailure: function() {
+        this.hideSpinner();
+      }
 	  });
 	},
 	handleCheck: function(event) {
+	  ril.toggleItem({
+	    page: event.model,
+	    onSuccess: function() {
+	      this.updateList();
+	      this.updateHeader();
+	    }.bind(this)
+	  });
 	},
 	readItem: function(inSender, event) {
 		this.controller.stageController.pushScene("read", event.item);
@@ -78,6 +83,18 @@ MainAssistant.prototype = {
 	},
 	updateHeader: function() {
     this.$.header.node.down(".title").innerHTML = "Your Reading List - <strong>#{count} items</strong>".interpolate({count: this.$.readingList.model.items.length});
+	},
+	updateList: function() {
+	  this.$.readingList.model.items = ril.unreadList.clone();
+    this.controller.modelChanged(this.$.readingList.model);
+	},
+	showSpinner: function() {
+	  this.$.spinner.node.show();
+    this.$.scrim.node.show();
+	},
+	hideSpinner: function() {
+	  this.$.spinner.node.hide();
+    this.$.scrim.node.hide();
 	},
 	newItem: function() {
     // show dialog with URL/title fields, and a submit button
